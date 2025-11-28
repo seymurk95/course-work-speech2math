@@ -6,7 +6,7 @@ pipe = pipeline(
 )
 
 # Укажи путь к твоему файлу
-audio_file = r"C:\pyton\projects\NVIDEA_NN\Zadachi.wav"
+audio_file = r"Zadachi.wav"
 
 # Распознаём речь
 result = pipe(audio_file, language="ru", task="transcribe")
@@ -22,3 +22,4 @@ with open("result.txt", "w", encoding="utf-8") as f:
     f.write(text)
 
 print("Готово! Текст сохранён в result.txt")
+
