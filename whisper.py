@@ -1,5 +1,6 @@
 import torch
 import librosa
+import sys
 from transformers import pipeline
 
 # Определение устройства
@@ -13,7 +14,11 @@ pipe = pipeline(
     device=device
 )
 
-audio_file = "Rastvori.wav" 
+if len(sys.argv) > 1:
+    audio_file = sys.argv[1]
+else:
+    # Оставляем значение по умолчанию, чтобы файл работал сам по себе
+    audio_file = "Rastvori.wav"
 
 print("Загрузка аудио...")
 # Загружаем
