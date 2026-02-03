@@ -23,7 +23,7 @@ if len(sys.argv) < 2:
     print("Использование: python whisper.py <путь_к_файлу>")
     sys.exit(1)
 
-audio_file = sys.argv[1] # Берем файл из аргумента командной строки
+
 
 device = 0 if torch.cuda.is_available() else -1
 
@@ -81,4 +81,5 @@ print("\nмодель Wisper завершила свою работу")
 
 with open("raw_text.txt", "w", encoding="utf-8") as f:
     f.write(text)
+
 
