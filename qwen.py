@@ -33,7 +33,7 @@ print(f"Чтение файла {input_file}...")
 with open(input_file, "r", encoding="utf-8") as f:
     raw_text = f.read()
 
-# Промпт (оставляем тот же, он сработал хорошо)
+# Промпт
 system_instruction = r"""
 Ты — эксперт-математик и редактор LaTeX.
 Ты обрабатываешь расшифровку речи и превращаешь её в корректный научный текст на LaTeX.
@@ -122,3 +122,4 @@ try:
 
 except Exception as e:
     print(f"Ошибка: {e}")
+
