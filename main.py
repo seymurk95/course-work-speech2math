@@ -33,7 +33,5 @@ if __name__ == "__main__":
     # Здесь вы можете вручную менять название файла
     file_to_process = "Rastvori.wav" 
     
-    # Или даже спрашивать пользователя в консоли:
-    # file_to_process = input("Введите путь к аудиофайлу: ")
-    
     run_pipeline(file_to_process)
+
