@@ -13,7 +13,7 @@ pipe = pipeline(
     device=device
 )
 
-audio_file = "gladkayaKrivaya.wav" 
+audio_file = "Rastvori.wav" 
 
 print("Загрузка аудио...")
 # Загружаем
@@ -32,8 +32,8 @@ result = pipe(
 )
 
 text = result["text"]
-print("\nРЕЗУЛЬТАТ:")
-print(text)
+print("\nмодель Wisper завершила свою работу")
+#print(text)
 
 with open("raw_text.txt", "w", encoding="utf-8") as f:
     f.write(text)
