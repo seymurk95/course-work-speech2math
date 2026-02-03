@@ -94,8 +94,9 @@ try:
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(full_latex_document)
 
-    print(f"\nГОТОВО! Файл сохранен как: {output_file}")
-    print("Теперь вы можете открыть этот файл в TeXStudio, Overleaf или любом другом редакторе и скомпилировать.")
+    #print(f"\nГОТОВО! Файл сохранен как: {output_file}")
+    #print("Теперь вы можете открыть этот файл в TeXStudio, Overleaf или любом другом редакторе и скомпилировать.")
+    print("\nмодель Qwen завершила свою работу")
 
 except Exception as e:
     print(f"Ошибка: {e}")
