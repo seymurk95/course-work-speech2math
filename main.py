@@ -1,43 +1,39 @@
 import subprocess
-import os
 import sys
+import os
 
-def run_script(script_name):
-    """Запускает Python-скрипт и ждет его завершения."""
-    print(f"\n--- Запуск этапа: {script_name} ---")
+def run_pipeline(audio_path):
+    # Проверяем, существует ли вообще аудиофайл
+    if not os.path.exists(audio_path):
+        print(f"Ошибка: Файл {audio_path} не найден!")
+        return
+
+    print(f"\nНачинаем обработку файла: {audio_path}")
+
+    # Этап 1: Whisper
+    # Мы передаем audio_path как дополнительный аргумент в командную строку
+    print("--- Запуск Whisper ---")
     try:
-        # Запускаем скрипт тем же интерпретатором Python, который запустил этот файл
-        result = subprocess.run([sys.executable, script_name], check=True)
-        return True
-    except subprocess.CalledProcessError as e:
-        print(f"Ошибка при выполнении {script_name}: {e}")
-        return False
-
-def main():
-    # 1. Пути к твоим файлам
-    whisper_script = "whisper.py"
-    qwen_script = "qwen.py"
-    intermediate_file = "raw_text.txt"
-
-    # Шаг 1: Транскрибация (Whisper)
-    if not run_script(whisper_script):
-        print("Остановка конвейера на этапе распознавания речи.")
+        subprocess.run([sys.executable, "whisper.py", audio_path], check=True)
+    except subprocess.CalledProcessError:
+        print("Ошибка на этапе Whisper.")
         return
 
-    # Проверка: появился ли промежуточный файл?
-    if not os.path.exists(intermediate_file):
-        print(f"Ошибка: {intermediate_file} не был создан. Проверьте whisper.py.")
+    # Этап 2: Qwen
+    print("\n--- Запуск Qwen (LaTeX formatting) ---")
+    try:
+        subprocess.run([sys.executable, "qwen.py"], check=True)
+    except subprocess.CalledProcessError:
+        print("Ошибка на этапе Qwen.")
         return
 
-    # Шаг 2: Форматирование (Qwen)
-    if not run_script(qwen_script):
-        print("Остановка конвейера на этапе обработки текста.")
-        return
-
-    print("\n==========================================")
-    print("ПРОГРАММА УСПЕШНО ЗАВЕРШЕНА!")
-    print("Итоговый файл: result.tex")
-    print("==========================================")
+    print("\nГотово! Результат сохранен в result.tex")
 
 if __name__ == "__main__":
-    main()
+    # Здесь вы можете вручную менять название файла
+    file_to_process = "Rastvori.wav" 
+    
+    # Или даже спрашивать пользователя в консоли:
+    # file_to_process = input("Введите путь к аудиофайлу: ")
+    
+    run_pipeline(file_to_process)
