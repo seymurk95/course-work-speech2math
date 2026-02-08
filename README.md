@@ -12,7 +12,7 @@
 
 1.  **[Whisper Medium](https://huggingface.co/openai/whisper-medium)** — для распознавания речи (ASR).
     * **Преимущества:** Оптимальный баланс между качеством распознавания терминов и потреблением видеопамяти.
-2.  **[Qwen 2.5 7B Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)** — для интеллектуального преобразования текста в формат LaTeX.
+2.  **[qwen3-esper3-reasoning-coder-instruct-12b-brainstorm20x-128k-ctx]([https://huggingface.co/Qwen/Qwen2.5-7B-Instruct](https://huggingface.co/mradermacher/Qwen3-Esper3-Reasoning-CODER-Instruct-12B-Brainstorm20x-i1-GGUF))** — для интеллектуального преобразования текста в формат LaTeX.
     * **Преимущества:** Высокая точность обработки сложных логических структур и корректная интерпретация математического контекста.
 
 ---
