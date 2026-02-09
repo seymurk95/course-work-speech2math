@@ -27,11 +27,23 @@ def run_pipeline(audio_path):
         print("Ошибка на этапе Qwen.")
         return
 
-    print("\nГотово! Результат сохранен в result.tex")
+    # Этап 3: Стилист (Важно: переносим 'Готово' в самый конец)
+    print("\n--- ШАГ 3: Стилистическое оформление (stilist.py) ---")
+    try:
+        subprocess.run([sys.executable, "stilist.py"], check=True)
+    except subprocess.CalledProcessError:
+        print("Ошибка на этапе стилиста.")
+        return
+
+    print("\n========================================")
+    print("ВСЕ ЭТАПЫ ЗАВЕРШЕНЫ УСПЕШНО!")
+    print("Финальный результат: final_lecture.tex")
+    print("========================================")
 
 if __name__ == "__main__":
     # Здесь вы можете вручную менять название файла
-    file_to_process = "Rastvori.wav" 
+    file_to_process = "nulmer.wav" 
+    
+    # Или даже спрашивать пользователя в консоли:
     
     run_pipeline(file_to_process)
-
