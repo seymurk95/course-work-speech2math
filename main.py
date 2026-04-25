@@ -4,40 +4,31 @@ import os
 import time
 import requests
 
-LM_STUDIO_URL = "http://127.0.0.1:1234"
+LM_STUDIO_URL = "http://127.0.0.1:1234/v1"
 
 def unload_lm_model():
     print("⏳ Выгружаем модель из LM Studio...")
     try:
-        # Получаем список моделей
+        # 1. Пытаемся по-хорошему через API (как и раньше)
         resp = requests.get(f"{LM_STUDIO_URL}/v1/models")
-        if resp.status_code != 200:
-            print("⚠️ Не удалось получить список моделей")
-            return
-
-        models = resp.json().get("data", [])
-        if not models:
-            print("ℹ️ Нет загруженных моделей")
-            return
-
-        # Берём первую загруженную модель
-        model_id = models[0].get("id")
-        print(f"Найдена модель: {model_id}")
-
-        # Пытаемся выгрузить
-        unload_resp = requests.post(
-            f"{LM_STUDIO_URL}/api/v1/models/unload",
-            json={"instance_id": model_id}
-        )
-
-        if unload_resp.status_code in (200, 204):
-            print("✅ Модель успешно выгружена")
-            time.sleep(4)
-        else:
-            print(f"⚠️ Не удалось выгрузить: {unload_resp.text}")
+        if resp.status_code == 200:
+            models = resp.json().get("data", [])
+            if models:
+                model_id = models[0].get("id")
+                requests.post(f"{LM_STUDIO_URL}/v1/models/unload", json={"model": model_id})
+        
+        # 2. ГРУБАЯ СИЛА (добавь это!)
+        # Убиваем все процессы, в имени которых есть 'lmstudio' или которые запускаются из папки .lmstudio
+        print("🧹 Принудительная очистка VRAM...")
+        os.system("pkill -9 -f lmstudio")
+        os.system("pkill -9 -f .lmstudio")
+        
+        # Даем системе 2 секунды, чтобы видеокарта осознала свободу
+        time.sleep(2)
+        print("✅ Видеопамять должна быть свободна")
 
     except Exception as e:
-        print(f"⚠️ Ошибка при выгрузке: {e}")
+        print(f"⚠️ Ошибка при очистке: {e}")
 
 
 def run_pipeline(audio_path):
@@ -81,5 +72,5 @@ def run_pipeline(audio_path):
 
 
 if __name__ == "__main__":
-    file_to_process = "nepr.wav"
+    file_to_process = "nulmer.wav"
     run_pipeline(file_to_process)
