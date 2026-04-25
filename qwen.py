@@ -8,13 +8,14 @@ client = OpenAI(
     api_key="lm-studio"
 )
 input_file = "raw_text.txt"
-output_file = "result.tex" # Сохраняем сразу как .tex файл
+output_file = "raw.tex" # Сохраняем сразу как .tex файл
 
 # Шаблон LaTeX документа с поддержкой русского языка
 latex_template_start = r"""
 \documentclass[12pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
+\usepackage{amssymb}
 \usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
 
 \begin{document}
@@ -156,7 +157,7 @@ print("Обработка текста нейросетью...")
 
 try:
     completion = client.chat.completions.create(
-        model="qwen3-esper3-reasoning-coder-instruct-12b-brainstorm20x-128k-ctx",
+        model="qwen3-esper3-reasoning-coder-instruct-12b-brainstorm20x-i1@q4_k_m",
         messages=[
             {"role": "system", "content": system_instruction},
             {"role": "user", "content": raw_text}
