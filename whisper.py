@@ -11,10 +11,9 @@ torch.cuda.empty_cache()
 gc.collect()
 
 # Получаем путь к аудио
-if len(sys.argv) > 1:
-    audio_file = sys.argv[1]
-else:
-    audio_file = "nepr.wav"
+
+audio_file = sys.argv[1]
+
 
 # Определяем устройство
 device = 0 if torch.cuda.is_available() else -1
